@@ -6,11 +6,7 @@ namespace FileSystem.Abstraction.Test.FileSystem
     [TestClass]
     public class FileServiceTest
     {
-        private const string Filename = "SomeFile.txt";
-
-        private const string Path = @"C:\SomeDir\SomeFile.txt";
-
-        private const string Content = "some content";
+        private static readonly string Path = $"C:{System.IO.Path.DirectorySeparatorChar}SomeDir{System.IO.Path.DirectorySeparatorChar}SomeFile.txt";
 
         [TestMethod]
         public void WhenGetFileInfoIsCalledWithInvalidArguments_ThenExceptionIsThrown()

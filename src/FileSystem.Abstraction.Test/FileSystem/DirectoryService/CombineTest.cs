@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
@@ -33,7 +34,7 @@ namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
         [TestMethod]
         public void WhenCombineIsCalledWithValidArguments_ExpectedResultHasToBeReturned()
         {
-            Assert.AreEqual(@"a\b", TestObject.Combine("a", "b"));
+            Assert.AreEqual($"a{Path.DirectorySeparatorChar}b", TestObject.Combine("a", "b"));
         }
     }
 }

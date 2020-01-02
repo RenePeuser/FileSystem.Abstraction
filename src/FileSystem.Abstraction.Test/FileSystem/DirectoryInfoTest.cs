@@ -91,7 +91,7 @@ namespace FileSystem.Abstraction.Test.FileSystem
             testObject.Refresh();
 
             Assert.IsTrue(testObject.Exists);
-            Assert.AreEqual(targetDirectory.FullName.TrimEnd('\\'), testObject.FullName.TrimEnd('\\'));
+            Assert.AreEqual(targetDirectory.FullName.TrimEnd(Path.DirectorySeparatorChar), testObject.FullName.TrimEnd(Path.DirectorySeparatorChar));
             testObject.Delete(false);
         }
 
