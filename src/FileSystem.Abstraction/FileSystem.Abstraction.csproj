@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Alexey Mokrov, Rene Peuser</Authors>
+    <Company></Company>
+    <Description>A simple library to get an abstraction to FileInfo and DirectoryInfo. As an addition you had for each object a service which you can use for better coding and handle accessing to the IO in a better way.</Description>
+    <Copyright>Copyright 2020 (c) Alexey Mokrov, Rene Peuser. All rights reserved.</Copyright>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</PackageProjectUrl>
+    <RepositoryUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</RepositoryUrl>
+    <PackageReleaseNotes>Prerelease of FileSystem.Abstraction</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Process.Abstraction\license.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
