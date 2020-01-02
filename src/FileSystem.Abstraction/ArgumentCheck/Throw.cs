@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using FileSystem.Abstraction.Extensions;
 
 namespace FileSystem.Abstraction.ArgumentCheck
 {
@@ -11,17 +10,15 @@ namespace FileSystem.Abstraction.ArgumentCheck
         [DebuggerHidden]
         public static void IfAnyItemIsNullOrWhitespace(Func<IEnumerable<string>> argumentFunc)
         {
-            Throw.IfNull(() => argumentFunc);
-            Throw.IfNull(argumentFunc);
+            IfNull(() => argumentFunc);
+            IfNull(argumentFunc);
 
             if (!argumentFunc().IsAnyItemNullOrWhitespace())
             {
                 return;
             }
 
-            ThrowIsAnyItemNullOrWhiteSpaceException(
-                argumentFunc,
-                arg => arg.Is<IEnumerable<string>>() && arg.Cast<IEnumerable<string>>().IsAnyItemNullOrWhitespace());
+            ThrowIsAnyItemNullOrWhiteSpaceException(argumentFunc, arg => arg.Is<IEnumerable<string>>() && arg.Cast<IEnumerable<string>>().IsAnyItemNullOrWhitespace());
         }
 
 
@@ -33,15 +30,15 @@ namespace FileSystem.Abstraction.ArgumentCheck
                 throw new ArgumentNullException(nameof(argumentFunc));
             }
 
-            Throw.IfNullInternal(argumentFunc);
+            IfNullInternal(argumentFunc);
         }
 
         [DebuggerHidden]
         internal static void IfNullOrWhiteSpace(Func<string> argumentFunc)
         {
-            Throw.IfNull(() => argumentFunc);
-            Throw.IfNullInternal(argumentFunc);
-            Throw.IfWhiteSpace(argumentFunc);
+            IfNull(() => argumentFunc);
+            IfNullInternal(argumentFunc);
+            IfWhiteSpace(argumentFunc);
         }
 
         [DebuggerHidden]
@@ -64,17 +61,13 @@ namespace FileSystem.Abstraction.ArgumentCheck
                 return;
             }
 
-            throw new ArgumentException(
-                "The string must not be a whitespace.",
-                argument.GetParameterName(arg => arg.Is<string>() && arg.Cast<string>().IsNullOrWhiteSpace()));
+            throw new ArgumentException("The string must not be a whitespace.", argument.GetParameterName(arg => arg.Is<string>() && arg.Cast<string>().IsNullOrWhiteSpace()));
         }
 
         [DebuggerHidden]
         private static void ThrowLessThanException<T>(Func<T> argumentFunc, T limit, Func<object, bool> predicate) where T : IComparable
         {
-            throw new ArgumentOutOfRangeException(
-                argumentFunc.GetParameterName(predicate),
-                string.Format(CultureInfo.InvariantCulture, "Value: '{0}' must not be less than: '{1}'", argumentFunc(), limit));
+            throw new ArgumentOutOfRangeException(argumentFunc.GetParameterName(predicate), string.Format(CultureInfo.InvariantCulture, "Value: '{0}' must not be less than: '{1}'", argumentFunc(), limit));
         }
 
         [DebuggerHidden]
@@ -82,9 +75,7 @@ namespace FileSystem.Abstraction.ArgumentCheck
             Func<IEnumerable<string>> argumentFunc,
             Func<object, bool> predicate)
         {
-            throw new ArgumentException(
-                $"At least one string in the enumeration '{string.Join(",", argumentFunc())}' was null or a whitespace.",
-                argumentFunc.GetParameterName(predicate));
+            throw new ArgumentException($"At least one string in the enumeration '{string.Join(",", argumentFunc())}' was null or a whitespace.", argumentFunc.GetParameterName(predicate));
         }
     }
 }
