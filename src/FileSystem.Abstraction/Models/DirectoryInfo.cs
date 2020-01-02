@@ -114,14 +114,14 @@ namespace FileSystem.Abstraction
 
         private static IFileSystemInfo CreateFileSystemInfo(FileSystemInfo info)
         {
-            if (info is System.IO.FileInfo)
+            if (info is System.IO.FileInfo fileInfo)
             {
-                return CreateFileInfo((System.IO.FileInfo) info);
+                return CreateFileInfo(fileInfo);
             }
 
-            if (info is System.IO.DirectoryInfo)
+            if (info is System.IO.DirectoryInfo directoryInfo)
             {
-                return CreateDirectoryInfo((System.IO.DirectoryInfo) info);
+                return CreateDirectoryInfo(directoryInfo);
             }
 
             throw new InvalidOperationException();
