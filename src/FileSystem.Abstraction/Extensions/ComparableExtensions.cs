@@ -31,14 +31,5 @@ namespace FileSystem.Abstraction.Extensions
 
             return source.CompareTo(target) > 0;
         }
-
-        public static bool IsGreaterOrEqual<T>(this T source, T target)
-            where T : IComparable
-        {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
-
-            return !source.IsLessThan(target);
-        }
     }
 }

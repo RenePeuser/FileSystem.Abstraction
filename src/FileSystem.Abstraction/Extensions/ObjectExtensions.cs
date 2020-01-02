@@ -24,11 +24,6 @@
             return source is T;
         }
 
-        public static bool IsNot<T>(this object source)
-        {
-            return Is<T>(source).IsFalse();
-        }
-
         public static bool IsNotNull(this object source)
         {
             return !source.EqualsTo(null);

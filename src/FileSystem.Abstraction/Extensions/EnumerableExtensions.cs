@@ -13,14 +13,5 @@ namespace FileSystem.Abstraction.Extensions
 
             return source.Any(item => check(item));
         }
-
-        public static void ForEach<TSource>(this IEnumerable<TSource> source, Action<TSource> action)
-        {
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => action);
-
-            var sourceList = source.ToList();
-            sourceList.ForEach(action);
-        }
     }
 }
