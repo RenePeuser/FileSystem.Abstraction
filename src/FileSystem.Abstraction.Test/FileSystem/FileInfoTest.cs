@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,9 +10,9 @@ namespace FileSystem.Abstraction.Test.FileSystem
     [TestClass]
     public class FileInfoTest
     {
-        private const string TextData = "LineA\r\nLineB\r\n";
-        private const string TextDataAppend = "LineC\r\n";
-        private const string TextDataFull = TextData + TextDataAppend;
+        private static readonly string TextData = $"LineA{Environment.NewLine}LineB{Environment.NewLine}";
+        private static readonly string TextDataAppend = $"LineC{Environment.NewLine}";
+        private static readonly string TextDataFull = TextData + TextDataAppend;
         private static readonly string[] STextLines = { "LineA", "LineB" };
         private static readonly string[] STextLinesAppend = { "LineC" };
         private static System.IO.FileInfo _systemReadOnlyFileInfo;
@@ -392,7 +393,12 @@ namespace FileSystem.Abstraction.Test.FileSystem
             return text;
         }
 
-        private static void AssertFileContent(Action<FileInfo> action, string expectedContent = TextData)
+        private static void AssertFileContent(Action<FileInfo> action)
+        {
+            AssertFileContent(action, TextData);
+        }
+
+        private static void AssertFileContent(Action<FileInfo> action, string expectedContent)
         {
             var tempFile = CreateTempSystemFileInfo();
             var testObject = new FileInfo(tempFile);
