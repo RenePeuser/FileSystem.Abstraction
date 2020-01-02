@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DirectoryInfo = FileSystem.Abstraction.DirectoryInfo;
 
 namespace FileSystem.Abstraction.Test.FileSystem
 {

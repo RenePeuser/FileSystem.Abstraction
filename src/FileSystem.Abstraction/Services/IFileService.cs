@@ -1,4 +1,4 @@
-﻿namespace FileSystem.Abstraction.Services
+﻿namespace FileSystem.Abstraction
 {
     public interface IFileService
     {

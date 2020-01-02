@@ -1,5 +1,4 @@
-﻿using FileSystem.Abstraction.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
 {
@@ -11,7 +10,7 @@ namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
         [TestInitialize]
         public void Initialize()
         {
-            TestObject = new Services.DirectoryService();
+            TestObject = new Abstraction.DirectoryService();
         }
     }
 }

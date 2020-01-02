@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FileInfo = FileSystem.Abstraction.FileInfo;
 
 namespace FileSystem.Abstraction.Test.FileSystem
 {

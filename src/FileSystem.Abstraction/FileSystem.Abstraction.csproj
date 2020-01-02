@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,6 +10,7 @@
     <PackageProjectUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</PackageProjectUrl>
     <RepositoryUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</RepositoryUrl>
     <PackageReleaseNotes>Prerelease of FileSystem.Abstraction</PackageReleaseNotes>
+    <PackageTags>C#;IO;FileSystem;FileInfo;DirectoryInfo;FileSystemInfo</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

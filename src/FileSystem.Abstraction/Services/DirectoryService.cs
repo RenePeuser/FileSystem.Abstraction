@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using FileSystem.Abstraction.ArgumentCheck;
 
-namespace FileSystem.Abstraction.Services
+namespace FileSystem.Abstraction
 {
     public class DirectoryService : IDirectoryService
     {
