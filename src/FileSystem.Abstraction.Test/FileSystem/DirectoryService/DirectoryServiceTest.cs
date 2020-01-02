@@ -7,8 +7,6 @@ namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
     [TestClass]
     public class DirectoryServiceTest : TestBase
     {
-        private const string Path = @"C:\SomeDir\SomeSubDir";
-
         [TestMethod]
         public void WhenGetDirectoryInfoIsCalledWithInvalidArguments_ThenExceptionIsThrown()
         {
@@ -18,10 +16,12 @@ namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
         [TestMethod]
         public void WhenGetDirectoryInfoIsCalled_ThenInfoIsReturned()
         {
-            var result = TestObject.GetDirectoryInfo(Path);
+            var path = Path.Combine(Environment.CurrentDirectory, "SomeDir", "SomeSubDir");
+
+            var result = TestObject.GetDirectoryInfo(path);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(Path, result.FullName);
+            Assert.AreEqual(path, result.FullName);
         }
 
         [TestMethod]

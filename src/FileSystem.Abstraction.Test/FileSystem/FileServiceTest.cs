@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FileSystem.Abstraction.Test.FileSystem
@@ -6,8 +7,6 @@ namespace FileSystem.Abstraction.Test.FileSystem
     [TestClass]
     public class FileServiceTest
     {
-        private static readonly string Path = $"C:{System.IO.Path.DirectorySeparatorChar}SomeDir{System.IO.Path.DirectorySeparatorChar}SomeFile.txt";
-
         [TestMethod]
         public void WhenGetFileInfoIsCalledWithInvalidArguments_ThenExceptionIsThrown()
         {
@@ -19,11 +18,13 @@ namespace FileSystem.Abstraction.Test.FileSystem
         [TestMethod]
         public void WhenGetFileInfoIsCalled_ThenInfoIsReturned()
         {
+            var path = Path.Combine(Environment.CurrentDirectory, "SomeDir", "SomeFile.txt");
+
             var testObject = new FileService();
-            var result = testObject.GetFileInfo(Path);
+            var result = testObject.GetFileInfo(path);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(Path, result.FullName);
+            Assert.AreEqual(path, result.FullName);
         }
     }
 }
