@@ -230,13 +230,13 @@ namespace FileSystem.Abstraction.Test.FileSystem
         [TestMethod]
         public void WhenCreateSubdirectoryIsCalledWithInvalidArgument_ThenExceptionIsThrown()
         {
-            Assert.ThrowsException<ArgumentException>(() => _directoryInfo.CreateSubdirectory(""), "path");
+            Assert.ThrowsException<ArgumentException>(() => _directoryInfo.CreateSubDirectory(""), "path");
         }
 
         [TestMethod]
         public void WhenCreateSubdirectoryIsCalled_ThenSubdirectoryIsCreated()
         {
-            _directoryInfo.CreateSubdirectory("xxx");
+            _directoryInfo.CreateSubDirectory("xxx");
             var path = Path.Combine(_directoryInfo.FullName, "xxx");
 
             Assert.IsTrue(Directory.Exists(path));

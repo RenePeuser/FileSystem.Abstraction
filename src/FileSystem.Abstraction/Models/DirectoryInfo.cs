@@ -22,12 +22,12 @@ namespace FileSystem.Abstraction
             Instance.Create();
         }
 
-        public IDirectoryInfo CreateSubdirectory(string path)
+        public IDirectoryInfo CreateSubDirectory(string path)
         {
             Throw.IfNullOrWhiteSpace(() => path);
 
-            var subdirectoryInfo = Instance.CreateSubdirectory(path);
-            var result = CreateDirectoryInfo(subdirectoryInfo);
+            var subDirectoryInfo = Instance.CreateSubdirectory(path);
+            var result = CreateDirectoryInfo(subDirectoryInfo);
             return result;
         }
 

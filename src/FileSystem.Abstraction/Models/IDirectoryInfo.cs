@@ -11,7 +11,7 @@ namespace FileSystem.Abstraction
 
         void Create();
 
-        IDirectoryInfo CreateSubdirectory(string path);
+        IDirectoryInfo CreateSubDirectory(string path);
 
         void Delete(bool recursive);
 
