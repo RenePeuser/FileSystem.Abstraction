@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FileInfo = FileSystem.Abstraction.FileInfo;
 
 namespace FileSystem.Abstraction.Test.FileSystem
 {
@@ -219,10 +218,10 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
-                    {
-                        testObject.WriteAllText(TextData);
-                        testObject.AppendAllText(TextDataAppend);
-                    },
+                {
+                    testObject.WriteAllText(TextData);
+                    testObject.AppendAllText(TextDataAppend);
+                },
                 TextDataFull);
         }
 
@@ -237,10 +236,10 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
-                    {
-                        testObject.WriteAllText(TextData, Encoding.UTF8);
-                        testObject.AppendAllText(TextDataAppend, Encoding.UTF8);
-                    },
+                {
+                    testObject.WriteAllText(TextData, Encoding.UTF8);
+                    testObject.AppendAllText(TextDataAppend, Encoding.UTF8);
+                },
                 TextDataFull);
         }
 
@@ -255,10 +254,10 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
-                    {
-                        testObject.WriteAllLines(STextLines);
-                        testObject.AppendAllLines(STextLinesAppend);
-                    },
+                {
+                    testObject.WriteAllLines(STextLines);
+                    testObject.AppendAllLines(STextLinesAppend);
+                },
                 TextDataFull);
         }
 
@@ -273,10 +272,10 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
-                    {
-                        testObject.WriteAllLines(STextLines, Encoding.UTF8);
-                        testObject.AppendAllLines(STextLinesAppend, Encoding.UTF8);
-                    },
+                {
+                    testObject.WriteAllLines(STextLines, Encoding.UTF8);
+                    testObject.AppendAllLines(STextLinesAppend, Encoding.UTF8);
+                },
                 TextDataFull);
         }
 
@@ -285,13 +284,13 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
+                {
+                    using (var stream = testObject.OpenWrite())
                     {
-                        using (var stream = testObject.OpenWrite())
-                        {
-                            var bytes = Encoding.UTF8.GetBytes(TextData);
-                            stream.Write(bytes, 0, bytes.Length);
-                        }
-                    });
+                        var bytes = Encoding.UTF8.GetBytes(TextData);
+                        stream.Write(bytes, 0, bytes.Length);
+                    }
+                });
         }
 
         [TestMethod]
@@ -299,13 +298,13 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
+                {
+                    using (var stream = testObject.Create())
                     {
-                        using (var stream = testObject.Create())
-                        {
-                            var bytes = Encoding.UTF8.GetBytes(TextData);
-                            stream.Write(bytes, 0, bytes.Length);
-                        }
-                    });
+                        var bytes = Encoding.UTF8.GetBytes(TextData);
+                        stream.Write(bytes, 0, bytes.Length);
+                    }
+                });
         }
 
         [TestMethod]
@@ -313,12 +312,12 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
+                {
+                    using (var stream = testObject.CreateText())
                     {
-                        using (var stream = testObject.CreateText())
-                        {
-                            stream.Write(TextData);
-                        }
-                    });
+                        stream.Write(TextData);
+                    }
+                });
         }
 
         [TestMethod]
@@ -326,14 +325,14 @@ namespace FileSystem.Abstraction.Test.FileSystem
         {
             AssertFileContent(
                 testObject =>
-                    {
-                        testObject.WriteAllText(TextData);
+                {
+                    testObject.WriteAllText(TextData);
 
-                        using (var stream = testObject.AppendText())
-                        {
-                            stream.Write(TextDataAppend);
-                        }
-                    },
+                    using (var stream = testObject.AppendText())
+                    {
+                        stream.Write(TextDataAppend);
+                    }
+                },
                 TextDataFull);
         }
 

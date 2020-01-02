@@ -9,13 +9,13 @@ namespace FileSystem.Abstraction.Test.FileSystem.DirectoryService
         [TestMethod]
         public void When_SetCurrentDirectoryInfo_Is_Called_With_Null_FileInfo_Then_ArgumentExceptions_Have_To_Be_Thrown()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => TestObject.SetCurrentDirectoryInfo((FileInfo)null));
+            Assert.ThrowsException<ArgumentNullException>(() => TestObject.SetCurrentDirectoryInfo((FileInfo) null));
         }
 
         [TestMethod]
         public void When_SetCurrentDirectoryInfo_Is_Called_With_NullDirectoryInfo_Then_ArgumentExceptions_Have_To_Be_Thrown()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => TestObject.SetCurrentDirectoryInfo((DirectoryInfo)null));
+            Assert.ThrowsException<ArgumentNullException>(() => TestObject.SetCurrentDirectoryInfo((DirectoryInfo) null));
         }
 
         [TestMethod]
