@@ -11,6 +11,7 @@
     <RepositoryUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</RepositoryUrl>
     <PackageReleaseNotes>Prerelease of FileSystem.Abstraction</PackageReleaseNotes>
     <PackageTags>C#;IO;FileSystem;FileInfo;DirectoryInfo;FileSystemInfo</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
