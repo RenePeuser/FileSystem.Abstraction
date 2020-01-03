@@ -1,6 +1,6 @@
 # FileSystem.Abstraction
 
-A simple library to access Systtem.IO.FileInfo and System.IO.DirectoryInfo objects via an abstraction layer. File service and Directory service can be used for better coding and testing, they provide access to the .Net System.IO via dependency injection.
+A simple library to access System.IO.FileInfo and System.IO.DirectoryInfo objects via an abstraction layer. File service and Directory service can be used for better coding and testing, they provide access to the .Net System.IO via dependency injection.
 For convenience, some System.IO.File methods like ReadAllLines, WriteAllLines are added to the IFileInfo interface.
 
 ```
