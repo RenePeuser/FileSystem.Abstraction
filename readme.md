@@ -1,6 +1,7 @@
 # FileSystem.Abstraction
 
-A simple library to get an abstraction to FileInfo and DirectoryInfo. As an addition you had for each object a service which you can use for better coding and handle accessing to the IO in a better way.
+A simple library to access System.IO.FileInfo and System.IO.DirectoryInfo objects via an abstraction layer. File service and Directory service can be used for better coding and testing, they provide access to the .Net System.IO via dependency injection.
+For convenience, some System.IO.File methods like ReadAllLines, WriteAllLines are added to the IFileInfo interface.
 
 ```
 !! This poject is still in development !!
@@ -22,59 +23,36 @@ dotnet add package FileSystem.Abstraction --version x.y.z
 ![](./assets/pack-manager.png)
 
 ## DependencyInjection
-If you use any DI mechanism, you can register the File- and DirectoryService at your DI Container
+
+Using any DI mechanism, you can register the File- and DirectoryService at your DI Container
 ```csharp
 services.AddSingleton<IFileService, FileService>();
 services.AddSingleton<IDirectoryService, DirectoryService>();
 ```
 
-## Usage for a file
+## Accessing a file
 
-The file service returns an IFileInfo which wrapps the FileInfo away.
-### Build a instance of the file service
+The file service returns an IFileInfo instance that wrapps the System.IO.FileInfo object.
+
+### Obtain an instance of the file service via dependency injection
 ```csharp
-var fileService = new FileService();
+public MyClass(IFileService fileService);
 ```
 
-### Get a file from a string path
+### Get a file info object from a string path
 ```csharp
-var fileInfo = fileService.GetFileInfo();
+var fileInfo = fileService.GetFileInfo("C:\\file.txt");
 ```
 
-### File exists
+### Check if file exists and access the content
 ```csharp
-var fileInfo = fileService.GetFileInfo();
-if(fileInfo.Exists)
+if (fileInfo.Exists)
 {
+    var content = fileInfo.ReadAllLines();
     ...
 }
 
-if(fileInfo.NoExists)
-{
-    ...
-}
-```
-
-## Usage for a folder
-
-The file service returns an IFileInfo which wrapps the FileInfo away.
-### Build a instance of the file service
-```csharp
-var fileService = new FolderService();
-```
-
-### Get a file from a string path
-```csharp
-var fileInfo = fileService.GetFileInfo();
-```
-
-### File exists
-```csharp
-var fileInfo = fileService.GetFileInfo();
-if(fileInfo.Exists)
-{
-    ...
-}
+// or
 
 if(fileInfo.NotExists)
 {
@@ -82,26 +60,28 @@ if(fileInfo.NotExists)
 }
 ```
 
-## Usage for a directory
+## Accessing a directory
 
 The directory service returns an IDirectoryInfo which wrapps the DirectoryInfo away.
-### Build a instance of the directory service
+
+### ### Obtain an instance of the directory service via dependency injection
 ```csharp
-var directoryService = new DirectoryService();
+public MyClass(IDirectoryService directoryService);
 ```
 
-### Get a directory from a string path
+### Get a directory info object from a string path
 ```csharp
-var directoryInfo = directoryService.GetDirectoryInfo();
+var directoryInfo = directoryService.GetDirectoryInfo("C:\\MyFolder");
 ```
 
-### Directory exists
+### Check if directory exists
 ```csharp
-var directoryInfo = directoryService.GetDirectoryInfo();
 if(directoryInfo.Exists)
 {
     ...
 }
+
+// or
 
 if(directoryInfo.NotExists)
 {
