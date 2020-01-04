@@ -32,6 +32,10 @@ namespace FileSystem.Abstraction
 
         public long Length => Instance.Length;
 
+        public string NameWithoutExtension => Name.Replace(Extension, string.Empty);
+
+        public string ExtensionName => Extension.Replace(".", string.Empty);
+
         public StreamWriter AppendText()
         {
             var stream = Instance.AppendText();

@@ -16,7 +16,7 @@ namespace FileSystem.Abstraction.Test.FileSystem
         private static readonly string[] STextLines = { "LineA", "LineB" };
         private static readonly string[] STextLinesAppend = { "LineC" };
         private static System.IO.FileInfo _systemReadOnlyFileInfo;
-        private FileInfo _testObject;
+        private IFileInfo _testObject;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -39,6 +39,22 @@ namespace FileSystem.Abstraction.Test.FileSystem
         public void Initialize()
         {
             _testObject = new FileInfo(_systemReadOnlyFileInfo);
+        }
+
+        [TestMethod]
+        public void Should_Have_Correct_FileNameWithoutExtension()
+        {
+            var fileInfo = new FileInfo(new System.IO.FileInfo(Path.Combine(Path.GetTempPath(), "nice.cs")));
+
+            Assert.AreEqual("nice", fileInfo.NameWithoutExtension);
+        }
+
+        [TestMethod]
+        public void Should_Have_Correct_ExtensionName()
+        {
+            var fileInfo = new FileInfo(new System.IO.FileInfo(Path.Combine(Path.GetTempPath(), "nice.cs")));
+
+            Assert.AreEqual("cs", fileInfo.ExtensionName);
         }
 
         [TestMethod]

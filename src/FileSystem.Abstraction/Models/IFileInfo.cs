@@ -14,6 +14,10 @@ namespace FileSystem.Abstraction
 
         long Length { get; }
 
+        string NameWithoutExtension { get; }
+
+        string ExtensionName { get; }
+
         StreamWriter AppendText();
 
         IFileInfo CopyTo(string destFileName, bool overwrite);
