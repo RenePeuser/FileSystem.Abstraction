@@ -74,6 +74,18 @@ namespace FileSystem.Abstraction.Test.FileSystem
         }
 
         [TestMethod]
+        public void WhenCreateIsCalled_ThenRetunedDirectoryIsCreated()
+        {
+            var directory = CreateTempDirectoryInfo();
+            var testObject = new DirectoryInfo(directory);
+            Assert.IsFalse(testObject.Exists);
+
+            var createdDirectory = testObject.Create();
+
+            Assert.IsTrue(createdDirectory.Exists);
+        }
+
+        [TestMethod]
         public void WhenMoveToIsCalledWithInvalidArgument_ThenExceptionIsThrown()
         {
             Assert.ThrowsException<ArgumentException>(() => _directoryInfo.MoveTo(""), "destinationDirectory");

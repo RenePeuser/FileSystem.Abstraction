@@ -17,9 +17,13 @@ namespace FileSystem.Abstraction
 
         public IDirectoryInfo Root => CreateDirectoryInfo(Instance.Root);
 
-        public void Create()
+        public IDirectoryInfo Create()
         {
             Instance.Create();
+
+            //Sometimes it happens that when call create that exists is directly 'true'
+            Instance.Refresh();
+            return this;
         }
 
         public IDirectoryInfo CreateSubDirectory(string path)

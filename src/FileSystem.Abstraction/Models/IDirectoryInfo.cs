@@ -9,7 +9,7 @@ namespace FileSystem.Abstraction
 
         IDirectoryInfo Root { get; }
 
-        void Create();
+        IDirectoryInfo Create();
 
         IDirectoryInfo CreateSubDirectory(string path);
 
