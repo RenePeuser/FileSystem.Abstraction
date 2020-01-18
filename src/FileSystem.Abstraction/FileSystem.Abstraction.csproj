@@ -9,7 +9,10 @@
     <PackageLicenseFile>license.txt</PackageLicenseFile>
     <PackageProjectUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</PackageProjectUrl>
     <RepositoryUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</RepositoryUrl>
-    <PackageReleaseNotes>Prerelease of FileSystem.Abstraction</PackageReleaseNotes>
+    <PackageReleaseNotes>Prerelease of FileSystem.Abstraction
+
+Bug-Fixes / Changes
+- When delete or create a folder sometimes properties like "exists" was not updated.</PackageReleaseNotes>
     <PackageTags>C#;IO;FileSystem;FileInfo;DirectoryInfo;FileSystemInfo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
