@@ -35,12 +35,12 @@ namespace FileSystem.Abstraction.Test
         public void All_Methods_From_All_Classes_In_ArgumentCheck_Folder_Must_Be_Decorated_With_DebuggerHidden_Attribute()
         {
             var missingHiddenAttribute = from cSharpFileInfo in _csharpFileInfos
-                where cSharpFileInfo.FileInfo.FullName.Contains("ArgumentCheck")
-                from @class in cSharpFileInfo.SyntaxTree.GetRoot().DescendantNodes().OfType<ClassDeclarationSyntax>()
-                from method in @class.DescendantNodes().OfType<MethodDeclarationSyntax>()
-                let attributeListSyntaxes = method.AttributeLists
-                where !attributeListSyntaxes.Any() || !attributeListSyntaxes.First().Attributes.Any() || !attributeListSyntaxes.First().Attributes.Any(a => a.Name.ToString().Contains("DebuggerHidden"))
-                select new AnalyzeResult(cSharpFileInfo.FileInfo, method.Identifier.ToString());
+                                         where cSharpFileInfo.FileInfo.FullName.Contains("ArgumentCheck")
+                                         from @class in cSharpFileInfo.SyntaxTree.GetRoot().DescendantNodes().OfType<ClassDeclarationSyntax>()
+                                         from method in @class.DescendantNodes().OfType<MethodDeclarationSyntax>()
+                                         let attributeListSyntaxes = method.AttributeLists
+                                         where !attributeListSyntaxes.Any() || !attributeListSyntaxes.First().Attributes.Any() || !attributeListSyntaxes.First().Attributes.Any(a => a.Name.ToString().Contains("DebuggerHidden"))
+                                         select new AnalyzeResult(cSharpFileInfo.FileInfo, method.Identifier.ToString());
 
             Assert.IsFalse(missingHiddenAttribute.Any(), ToMessage(missingHiddenAttribute));
         }

@@ -57,6 +57,7 @@ namespace FileSystem.Abstraction
         public void Delete()
         {
             Instance.Delete();
+            Instance.Refresh();
         }
 
         public void Refresh()

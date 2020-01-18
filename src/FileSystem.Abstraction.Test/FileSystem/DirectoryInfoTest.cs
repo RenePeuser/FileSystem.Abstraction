@@ -67,7 +67,6 @@ namespace FileSystem.Abstraction.Test.FileSystem
             Assert.IsFalse(testObject.Exists);
 
             testObject.Create();
-            testObject.Refresh();
 
             Assert.IsTrue(testObject.Exists);
             testObject.Delete(false);
