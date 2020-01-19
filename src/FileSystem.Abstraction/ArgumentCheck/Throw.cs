@@ -50,7 +50,7 @@ namespace FileSystem.Abstraction.ArgumentCheck
                 return;
             }
 
-            throw new ArgumentNullException(argumentFunc.GetParameterName());
+            throw new ArgumentNullException(argumentFunc.GetParameterName(arg => arg == null));
         }
 
         [DebuggerHidden]
@@ -61,13 +61,13 @@ namespace FileSystem.Abstraction.ArgumentCheck
                 return;
             }
 
-            throw new ArgumentException("The string must not be a whitespace.", argument.GetParameterName());
+            throw new ArgumentException("The string must not be a whitespace.", argument.GetParameterName(arg => arg.Is<string>() && arg.Cast<string>().IsNullOrWhiteSpace()));
         }
 
         [DebuggerHidden]
         private static void ThrowLessThanException<T>(Func<T> argumentFunc, T limit, Func<object, bool> predicate) where T : IComparable
         {
-            throw new ArgumentOutOfRangeException(argumentFunc.GetParameterName(), string.Format(CultureInfo.InvariantCulture, "Value: '{0}' must not be less than: '{1}'", argumentFunc(), limit));
+            throw new ArgumentOutOfRangeException(argumentFunc.GetParameterName(predicate), string.Format(CultureInfo.InvariantCulture, "Value: '{0}' must not be less than: '{1}'", argumentFunc(), limit));
         }
 
         [DebuggerHidden]
@@ -75,7 +75,7 @@ namespace FileSystem.Abstraction.ArgumentCheck
             Func<IEnumerable<string>> argumentFunc,
             Func<object, bool> predicate)
         {
-            throw new ArgumentException($"At least one string in the enumeration '{string.Join(",", argumentFunc())}' was null or a whitespace.", argumentFunc.GetParameterName());
+            throw new ArgumentException($"At least one string in the enumeration '{string.Join(",", argumentFunc())}' was null or a whitespace.", argumentFunc.GetParameterName(predicate));
         }
     }
 }

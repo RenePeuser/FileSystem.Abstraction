@@ -36,34 +36,43 @@ public Class(IService service)
 ";
 
         [DebuggerHidden]
-        internal static IEnumerable<ILReconstructedMethod> Rebuild<T>(this Func<T> func, IEnumerable<FieldInfo> fieldInfos)
+        internal static IEnumerable<ILReconstructedMethod> Rebuild<T>(this Func<T> func, IEnumerable<FieldInfo> fieldInfos, Func<object, bool> predicate)
         {
             Throw.IfNull(() => func);
             Throw.IfNull(() => fieldInfos);
 
             var method = func.Method;
             var typeInfo = method.DeclaringType.Cast<TypeInfo>();
+            var typeInfoDeclaredMethods = typeInfo.DeclaredMethods.ToList();
+            var declaredMethods = typeInfoDeclaredMethods.Where(m => fieldInfos.Any(f => m.ReturnType.IsAssignableFrom(f.FieldType))).ToList();
+            var filteredFieldInfos = fieldInfos.Where(f => declaredMethods.Any(m => m.ReturnType.IsAssignableFrom(f.FieldType))).ToList();
 
-            var typeInfoDeclaredMethods = typeInfo.DeclaredMethods;
-
-            var declaredMethods = typeInfoDeclaredMethods.Where(m => fieldInfos.Any(f => m.ReturnParameter.ParameterType.IsAssignableFrom(f.FieldType))).ToList();
-
-            var methodsWhichNotMatchFieldType = typeInfoDeclaredMethods.Except(declaredMethods).ToList();
-            if (methodsWhichNotMatchFieldType.Any())
+            // if we have generated methods which match not the return type of our parameters then we are not in our scope any more.
+            var methodsWhichNotMatchFieldType = !declaredMethods.Any() || !filteredFieldInfos.Any() || declaredMethods.Any(m => fieldInfos.All(f => !m.ReturnType.IsAssignableFrom(f.FieldType)));
+            if (methodsWhichNotMatchFieldType)
             {
                 throw new InvalidOperationException($"Please check, that you only do argument checking with the 'Throw' helpers in the scope of an constructor or method. It will not work for outer scope stuff. Sample:{Environment.NewLine}{Sample}");
             }
 
-            if (declaredMethods.Count == fieldInfos.Count())
+            // Easiest case 1 argument 1 check (Multiple arguments)
+            if (declaredMethods.Count == filteredFieldInfos.Count)
             {
-                var rebuildIlMethods = FetchOneArgumentOneCheck(declaredMethods, fieldInfos);
+                var rebuildIlMethods = FetchOneArgumentOneCheck(declaredMethods, filteredFieldInfos);
                 return rebuildIlMethods;
             }
 
-            var result = FetchMultiCheckForOneArgument(declaredMethods, fieldInfos).ToList();
+            // 
+            var result = FetchMultiCheckForOneArgument(func, declaredMethods, filteredFieldInfos, predicate).ToList();
             return result;
         }
 
+        // Simple case works great !
+        // public Class(object a, object b, object c)
+        // {
+        //     Throw.IfNull(() => a);
+        //     Throw.IfNull(() => b);
+        //     Throw.IfNull(() => c);
+        // }
         [DebuggerHidden]
         private static IEnumerable<ILReconstructedMethod> FetchOneArgumentOneCheck(IEnumerable<MethodInfo> declaredMethods, IEnumerable<FieldInfo> fieldInfos)
         {
@@ -72,24 +81,22 @@ public Class(IService service)
             return ilMethods;
         }
 
-        [DebuggerHidden]
-        private static IEnumerable<ILReconstructedMethod> FetchMultiCheckForOneArgument(IEnumerable<MethodInfo> declaredMethods, IEnumerable<FieldInfo> fieldInfos)
-        {
-            var orderedMethods = declaredMethods.Select(m => new { m, index = m.Name.Split(new[] { "__" }, StringSplitOptions.RemoveEmptyEntries).Last() }).OrderBy(x => x.index).Select(x => x.m).ToList();
-            var counetr = declaredMethods.Count() / fieldInfos.Count();
 
-            int count = 0;
-            int index = 0;
-            foreach (var orderedMethod in orderedMethods)
-            {
-                if (count == counetr)
-                {
-                    index++;
-                }
-                var fieldForMethod = fieldInfos.ElementAt(index);
-                count++;
-                yield return new ILReconstructedMethod(orderedMethod, fieldForMethod);
-            }
+        // Worst case works not perfect now.
+        // public Class(string a, object b, object c)
+        // {
+        //     Throw.IfNull(() => a);
+        //     Throw.IfWhitespace(() => a);
+        //     
+        //     Throw.IfNull(() => b);
+        //     Throw.IfNull(() => c);
+        // }
+        [DebuggerHidden]
+        private static IEnumerable<ILReconstructedMethod> FetchMultiCheckForOneArgument<T>(this Func<T> func, IEnumerable<MethodInfo> declaredMethods, IEnumerable<FieldInfo> fieldInfos, Func<object, bool> predicate)
+        {
+            //var orderedMethods = declaredMethods.Select(m => new { m, index = m.Name.Split(new[] { "__" }, StringSplitOptions.RemoveEmptyEntries).Last() }).OrderBy(x => x.index).Select(x => x.m).ToList();
+
+            yield return new ILReconstructedMethod(func.Method, fieldInfos.FirstOrDefault(f => predicate(f.GetValue(func.Target))));
         }
     }
 }
