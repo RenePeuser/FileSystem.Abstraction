@@ -5,6 +5,8 @@ using FileSystem.Abstraction.ArgumentCheck;
 
 namespace FileSystem.Abstraction
 {
+    using System.Security;
+
     public class FileInfo : FileSystemInfo<System.IO.FileInfo>, IFileInfo
     {
         public FileInfo(System.IO.FileInfo info)
@@ -180,5 +182,9 @@ namespace FileSystem.Abstraction
 
             File.WriteAllText(Instance.FullName, contents, encoding);
         }
+
+        public override bool IsFile { get; } = true;
+
+        public override bool IsDirectory { get; } = false;
     }
 }

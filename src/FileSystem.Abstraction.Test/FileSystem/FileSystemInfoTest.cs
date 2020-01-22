@@ -154,6 +154,10 @@ namespace FileSystem.Abstraction.Test.FileSystem
             }
 
             public System.IO.FileInfo FileInfoInstance => Instance;
+
+            public override bool IsFile { get; } = true;
+
+            public override bool IsDirectory { get; } = false;
         }
     }
 }

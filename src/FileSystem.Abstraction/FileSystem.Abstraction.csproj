@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Alexey Mokrov, Rene Peuser</Authors>
     <Company></Company>
     <Description>A simple library to get an abstraction to FileInfo and DirectoryInfo. As an addition you had for each object a service which you can use for better coding and handle accessing to the IO in a better way.</Description>

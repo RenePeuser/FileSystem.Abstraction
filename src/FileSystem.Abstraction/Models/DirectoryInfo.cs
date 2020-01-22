@@ -130,5 +130,9 @@ namespace FileSystem.Abstraction
 
             throw new InvalidOperationException();
         }
+
+        public override bool IsFile { get; } = false;
+
+        public override bool IsDirectory { get; } = true;
     }
 }

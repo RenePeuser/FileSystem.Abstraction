@@ -34,6 +34,10 @@ namespace FileSystem.Abstraction
 
         public bool NotExists => Exists.IsFalse();
 
+        public abstract bool IsFile { get; }
+
+        public abstract bool IsDirectory { get; }
+
         public string Extension => Instance.Extension;
 
         public string FullName => Instance.FullName;

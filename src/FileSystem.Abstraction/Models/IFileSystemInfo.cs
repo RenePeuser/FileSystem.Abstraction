@@ -13,6 +13,10 @@ namespace FileSystem.Abstraction
 
         bool NotExists { get; }
 
+        bool IsFile { get; }
+
+        bool IsDirectory { get; }
+
         string Extension { get; }
 
         string FullName { get; }
