@@ -7,8 +7,8 @@
     <Description>A simple library to get an abstraction to FileInfo and DirectoryInfo. As an addition you had for each object a service which you can use for better coding and handle accessing to the IO in a better way.</Description>
     <Copyright>Copyright 2020 (c) Alexey Mokrov, Rene Peuser. All rights reserved.</Copyright>
     <PackageLicenseFile>license.txt</PackageLicenseFile>
-    <PackageProjectUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</PackageProjectUrl>
-    <RepositoryUrl>https://renepeuser.visualstudio.com/FileSystem.Abstraction</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/RenePeuser/FileSystem.Abstraction</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/RenePeuser/FileSystem.Abstraction</RepositoryUrl>
     <PackageReleaseNotes>Prerelease of FileSystem.Abstraction
 
 Bug-Fixes / Changes
